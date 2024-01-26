@@ -1,4 +1,5 @@
 const { User } = require("../models/users");
+const { Account } = require("../models/accounts");
 const generateToken = require("../utils/generateToken");
 const { signupValidation, signinValidation, updateValidation } = require("../zod");
 const bcrypt = require("bcrypt");
@@ -46,6 +47,14 @@ const signUp = async (req, res) => {
 
     await user.save(); // saving of document
 
+    // account creation
+    const account = new Account({
+      userId: user._id,
+      balance: Math.floor(Math.random() * 10000) + 1
+    });
+
+    await account.save();
+    
     // generateToken jwt
     const token = generateToken(user._id, res);
 
