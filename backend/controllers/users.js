@@ -59,7 +59,7 @@ const signUp = async (req, res) => {
     const token = generateToken(user._id, res);
 
     res.status(200).json({
-      message: "User created successfully",
+      message: `${user.username} created successfully`,
       token,
     });
 
@@ -110,6 +110,7 @@ const signIn = async (req, res) => {
     const token = generateToken(isExistingUser._id, res);
 
     res.status(200).json({
+      message: `${isExistingUser.username} has logged in`,
       token,
     });
   } 
