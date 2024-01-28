@@ -8,3 +8,4 @@ export {default as Navbar} from "./Navbar";
 export {default as Footer} from "./Footer";
 export {default as UserInfo} from "./UserInfo";
 export {default as UserInfoBar} from "./UserInfoBar";
+export {default as Balance} from "./Balance";

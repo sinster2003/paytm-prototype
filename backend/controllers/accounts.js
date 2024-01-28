@@ -1,3 +1,5 @@
+const { Account } = require("../models/accounts");
+
 const accountBalance = async (req,res) => {
     const userId = req.userId;
     try{

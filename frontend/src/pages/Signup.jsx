@@ -24,6 +24,7 @@ const Signup = () => {
       const token = result?.token
       // setting token in headers.authorization
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      localStorage.setItem("userLoggedId", JSON.stringify(result?.userId));
       //navigate to dashboard
       navigate("/dashboard");
       // toast

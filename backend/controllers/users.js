@@ -53,7 +53,7 @@ const signUp = async (req, res) => {
       balance: Math.floor(Math.random() * 10000) + 1
     });
 
-    await account.save();
+    await account.save(); // creation of account
     
     // generateToken jwt
     const token = generateToken(user._id, res);
@@ -61,6 +61,7 @@ const signUp = async (req, res) => {
     res.status(200).json({
       message: `${user.username} created successfully`,
       token,
+      userId: user._id
     });
 
     // error handling
@@ -112,6 +113,7 @@ const signIn = async (req, res) => {
     res.status(200).json({
       message: `${isExistingUser.username} has logged in`,
       token,
+      userId: isExistingUser._id
     });
   } 
   catch (error) {
@@ -202,8 +204,11 @@ const filterUser = async (req, res) => {
           }
         },
       ]
-    });
+    }).select("-password");
 
+    res.status(200).json(users);
+
+    /*
     res.status(200).json(users.map(user => ({
       firstname: user?.firstname,
       lastname: user?.lastname,
@@ -211,6 +216,7 @@ const filterUser = async (req, res) => {
       username: user?.username,
       _id: user?._id
     })));
+    */
   }
   catch(error) {
     console.log(error);
@@ -218,9 +224,31 @@ const filterUser = async (req, res) => {
   }
 }
 
+const getUser = async (req, res) => {
+  const { id } = req.params; // user_id
+
+  try {
+    const user = await User.findById(id).select("-password").select("-updatedAt");
+    if(!user) {
+      return res.status(404).json({
+        message: "User not found"
+      })
+    }
+    res.status(200).json(user);
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({
+      error,
+      message: "Something went wrong"
+    });
+  }
+}
+
 module.exports = {
   signUp,
   signIn,
   updateProfile,
-  filterUser
+  filterUser,
+  getUser
 };

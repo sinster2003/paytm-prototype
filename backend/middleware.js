@@ -3,11 +3,11 @@ const { JWT_SECRET } = require("./config");
 
 // verifying jwt
 const authMiddleware = (req, res, next) => {
-    // const bearerToken = req.cookies;
-    const bearerToken = req.headers.authorization;
+    const bearerToken = req.cookies?.jwt;
+    // const bearerToken = req.headers.authorization;
 
     // if null or does not start with Bearer
-    if (!bearerToken || !bearerToken.startsWith("Bearer ")) {
+    if (!bearerToken || !bearerToken?.startsWith("Bearer ")) {
         return res.status(403).json({message: "Not Authorized! Try to log in"});
     }
 
