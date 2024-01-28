@@ -3,3 +3,8 @@ export {default as SubHeading} from "./SubHeading";
 export {default as InputBox} from "./InputBox";
 export {default as Button} from "./Button";
 export {default as ButtonWarning} from "./ButtonWarning";
+export {default as Layout} from "./Layout";
+export {default as Navbar} from "./Navbar";
+export {default as Footer} from "./Footer";
+export {default as UserInfo} from "./UserInfo";
+export {default as UserInfoBar} from "./UserInfoBar";

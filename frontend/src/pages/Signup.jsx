@@ -36,7 +36,7 @@ const Signup = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-10 py-6 shadow-2xl border-gray-200 border-1">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-10 py-6 shadow-2xl border-gray-200 border-1 m-4">
       <div>
         <Heading heading="Sign up"/>
         <SubHeading subHeading="Enter your information to create an account" />
