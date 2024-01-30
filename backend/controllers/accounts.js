@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { Account } = require("../models/accounts");
 
 const accountBalance = async (req,res) => {

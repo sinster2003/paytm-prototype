@@ -9,9 +9,14 @@ const userAtom = atom({
 const userSelector = selector({
     key: "userSelector",
     get: async ({get}) => {
-        const response = await axios.get(`/api/v1/user/${get(userAtom)}`);
-        const result = response?.data;
-        return result;
+        if(get(userAtom)) {
+            const response = await axios.get(`/api/v1/user/${get(userAtom)}`);
+            const result = response?.data;
+            return result;
+        }
+        else {
+            return "User";
+        }
     }
 })
 

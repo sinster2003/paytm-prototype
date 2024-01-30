@@ -124,6 +124,17 @@ const signIn = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  // empty the cookies
+  res.cookie("jwt", "", {
+    maxAge: 1
+  });
+
+  res.status(200).json({
+    message: "Logged out successfully"
+  })
+}
+
 const updateProfile = async (req, res) => {
   const {firstname, lastname, email, username, password} = req.body;
   const userId = req.userId; // user logged in
@@ -250,5 +261,6 @@ module.exports = {
   signIn,
   updateProfile,
   filterUser,
-  getUser
+  getUser,
+  logout
 };

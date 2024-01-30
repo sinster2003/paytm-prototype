@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const Balance = () => {
   const [balance, setBalance] = useState(null);
@@ -10,9 +11,10 @@ const Balance = () => {
         const response = await axios.get(`/api/v1/account/balance`);
         const result = await response?.data;
         setBalance(result?.balance);
-      } catch (error) {
-        console.log(error);
-      }
+      } 
+      catch(error) {
+        toast.error(error?.response?.data?.message);
+      } 
     };
     getBalance();
   }, []);

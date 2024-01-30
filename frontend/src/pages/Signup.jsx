@@ -5,17 +5,24 @@ import signupObject from '../zod/signup';
 import axios from "axios";
 import {toast} from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '../atoms/userAtom';
 
 const Signup = () => {
   const {register, handleSubmit, errors} = useFormData(signupObject);
   const navigate = useNavigate();
+  const [userLoggedId, setuserLoggedId] = useRecoilState(userAtom);
 
   useEffect(() => {
+    if(userLoggedId) {
+      navigate("/dashboard");
+    }
+
     if(Object.keys(errors).length) {
       const errorMessage = Object.values(errors)[0]?.message;
       toast.error(errorMessage);
     }
-  }, [errors]);
+  }, [userLoggedId, errors]);
 
   const onSubmit = async (data) => {
     try{
@@ -23,8 +30,10 @@ const Signup = () => {
       const result = await response?.data;
       const token = result?.token
       // setting token in headers.authorization
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       localStorage.setItem("userLoggedId", JSON.stringify(result?.userId));
+      // useratom update
+      setuserLoggedId(result?.userId);
       //navigate to dashboard
       navigate("/dashboard");
       // toast
