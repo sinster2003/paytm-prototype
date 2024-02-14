@@ -214,6 +214,11 @@ const filterUser = async (req, res) => {
             $regex: filter // if lastname field has a regex which includes filter
           }
         },
+        {
+          username: {
+            $regex: filter // if username field has a regex which includes filter
+          }
+        },
       ]
     }).select("-password");
 

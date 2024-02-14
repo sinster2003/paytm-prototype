@@ -28,7 +28,7 @@ const Signin = () => {
     try{
       const response = await axios.post(`/api/v1/user/signin`, data);
       const result = await response?.data;
-      const token = result?.token
+      const token = result?.token;
       // setting token in headers.authorization
       // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; currently using cookies
       localStorage.setItem("userLoggedId", JSON.stringify(result?.userId));

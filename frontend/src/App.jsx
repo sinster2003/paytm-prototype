@@ -1,13 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Dashboard, Signin, Signup, Transfer } from "./pages"
 import { Toaster } from "react-hot-toast";
-import { RecoilRoot } from "recoil";
-function App() {
+import { useRecoilValue } from "recoil";
+import { userAtom } from "./atoms/userAtom";
+
+const App = () => {
+  const userLoggedId = useRecoilValue(userAtom);
+
   return (
-    <RecoilRoot>
     <div className="flex justify-center items-center h-screen">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={userLoggedId ? <Dashboard/> :<Signin/>}/>
           <Route path="/signin" element={<Signin/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
@@ -16,7 +20,6 @@ function App() {
       </BrowserRouter>
       <Toaster position="bottom-right"/>
     </div>
-    </RecoilRoot>
   )
 }
 
